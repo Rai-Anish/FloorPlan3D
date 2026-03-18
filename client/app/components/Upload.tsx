@@ -4,7 +4,8 @@ import {
     PROGRESS_INCREMENT, 
     PROGRESS_INTERVAL_MS, 
     REDIRECT_DELAY_MS 
-} from "lib/constants";
+} from "~/lib/constants";
+import { useAuthStore } from "~/store/authStore";
 
 interface UploadProps {
     onComplete: (base64: string) => void;
@@ -15,8 +16,9 @@ const Upload = ({ onComplete }: UploadProps) => {
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
 
-    // This should likely come from a Prop or Auth Context in a real app
-    const isSignedIn = true; 
+    // 
+    const user = useAuthStore((set)=>set.user)
+    const isSignedIn = !! user
 
     const processFile = (selectedFile: File) => {
         if (!isSignedIn) return;

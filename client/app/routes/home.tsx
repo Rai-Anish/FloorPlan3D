@@ -1,9 +1,10 @@
-import Navbar from "components/Navbar";
+import Navbar from "~/components/Navbar";
 import type { Route } from "./+types/home";
 import { ArrowRight, ArrowUpRight, Clock, Layers } from "lucide-react";
-import { Button } from "components/ui/Button";
-import Upload from "components/Upload";
+import { Button } from "~/components/ui/Button";
+import Upload from "~/components/Upload";
 import { useNavigate } from "react-router";
+import { useCommunityProjects, useCreateProject } from "~/hooks/useProject";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,21 +14,38 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const navigate = useNavigate  ()
+  const navigate = useNavigate();
+  const createProjectMutation = useCreateProject();
+  const { data: communityProjects, isLoading: communityLoading } = useCommunityProjects();
 
-  const handleUploadComplete = async(base64Image: string) =>{
-    const newId = Date.now().toString()
+  const handleUploadComplete = async (base64Image: string) => {
+    try {
+      const res = await fetch(base64Image);
+      const blob = await res.blob();
+      const file = new File([blob], "floorplan.png", { type: "image/png" });
 
-    navigate(`/visualize/${newId}`)
+      const formData = new FormData();
+      formData.append("floorPlan", file);
+      formData.append("title", `Project ${Date.now()}`);
+      formData.append("provider", "comfyui");
+      formData.append("visibility", "COMMUNITY");
 
-    return true
-  }
+      // Create project
+      createProjectMutation.mutate(formData, {
+        onSuccess: (newProject) => {
+          navigate(`/visualize/${newProject.id}`);
+        },
+      });
+    } catch (err) {
+      console.error("Upload failed:", err);
+    }
+  };
 
   return (
     <div className="home">
       <Navbar />
 
-      <section className="hero">    
+      <section className="hero">
         <div>
           <h2 className="announce">
             <div className="dot">
@@ -36,8 +54,11 @@ export default function Home() {
             <p>Introducing RoomMod 2.0 </p>
           </h2>
         </div>
+
         <h1>Build beautiful spaces at the speed of thoughts with RoomMod</h1>
-        <p className="subtitle">RoomMod is AI-first design environment which helps you design and customize your rooms with ease.</p>
+        <p className="subtitle">
+          RoomMod is AI-first design environment which helps you design and customize your rooms with ease.
+        </p>
 
         <div className="actions">
           <a href="#upload" className="cta">
@@ -61,7 +82,7 @@ export default function Home() {
               <h3>Upload your floor plan</h3>
               <p>Supports JPG, PNG, SVG formats up to 10MB</p>
             </div>
-            
+
             <Upload onComplete={handleUploadComplete} />
           </div>
         </div>
@@ -72,40 +93,44 @@ export default function Home() {
           <div className="section-head">
             <div className="copy">
               <h2>Projects</h2>
-              <p> Your latest works and community projects, all in one</p>
+              <p>Your latest works and community projects, all in one</p>
             </div>
           </div>
 
           <div className="projects-grid">
-            <div className="project-card group">
-              <div className="preview">
-                <img src="https://roomify-mlhuk267-dfwu1i.puter.site/projects/1770803585402/rendered.png" alt="Living Room" />
-                <div className="badge">
-                  <span>Community</span>
-                </div>
-              </div>
+            {communityLoading ? (
+              <p>Loading community projects...</p>
+            ) : (
+              communityProjects?.map((proj) => (
+                <div key={proj.id} className="project-card group">
+                  <div className="preview">
+                    <img src={proj.imageUrl || proj.originalImageUrl || ''} alt={proj.title} />
+                    <div className="badge">
+                      <span>{proj.visibility}</span>
+                    </div>
+                  </div>
 
-              <div className="card-body">
-                <div>
-                  <h3>Project Manhattan</h3>
+                  <div className="card-body">
+                    <div>
+                      <h3>{proj.title}</h3>
 
-                  <div className="meta">
-                    <Clock size={12} />
-                    <span>
-                      { new Date("2026-06-01").toLocaleDateString() }
-                    </span>
-                    <span>By Anish Rai</span>
+                      <div className="meta">
+                        <Clock size={12} />
+                        <span>{new Date(proj.createdAt).toLocaleDateString()}</span>
+                        <span>By {proj.user.username}</span>
+                      </div>
+                    </div>
+
+                    <div className="arrow">
+                      <ArrowUpRight size={18} />
+                    </div>
                   </div>
                 </div>
-
-                <div className="arrow">
-                  <ArrowUpRight size={18} />
-                </div>
-              </div>
-            </div>
+              ))
+            )}
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
