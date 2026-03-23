@@ -1,9 +1,19 @@
 import { useNavigate } from "react-router";
-import { ProjectCard } from "~/components/ProjectCard";
+import { ProjectCard } from "~/components/project/ProjectCard";
+import { ProjectCardSkeleton } from "~/components/project/ProjectCardSkeleton"; // Import individual card skeleton
 import { useMyProjects } from "~/hooks/useProject";
 import { useAuthStore } from "~/store/authStore";
 import { useEffect } from "react";
 import { Plus } from "lucide-react";
+
+// Helper for the grid layout
+const ProjectGridSkeleton = () => (
+    <div className="projects-grid">
+        {[...Array(6)].map((_, i) => (
+            <ProjectCardSkeleton key={i} />
+        ))}
+    </div>
+);
 
 export default function MyProjects() {
     const navigate = useNavigate();
@@ -12,11 +22,11 @@ export default function MyProjects() {
     const { data: myProjects, isLoading } = useMyProjects();
 
     useEffect(() => {
-        if (!hasHydrated) return; // wait for store to load from localStorage
+        if (!hasHydrated) return;
         if (!user) navigate("/login");
     }, [user, hasHydrated, navigate]);
 
-    // blank page 
+    // Show nothing until store is hydrated to prevent flash of login page
     if (!hasHydrated) return null;
 
     return (
@@ -38,9 +48,7 @@ export default function MyProjects() {
                     </div>
 
                     {isLoading ? (
-                        <div className="flex items-center justify-center py-20">
-                            <div className="animate-spin w-8 h-8 border-2 border-zinc-300 border-t-zinc-800 rounded-full" />
-                        </div>
+                        <ProjectGridSkeleton />
                     ) : myProjects?.length === 0 ? (
                         <div className="flex flex-col items-center justify-center py-20 gap-4">
                             <p className="text-zinc-500">No projects yet.</p>

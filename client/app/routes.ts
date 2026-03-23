@@ -9,10 +9,13 @@ export default [
         route("auth/callback", "./routes/auth/auth.callback.tsx")
     ]),
 
+    // routes - with no navbar
+    route('visualize/:id', "./routes/visualizer.tsx"),
+
     // main routes — with navbar
     layout("./routes/layout.tsx", [
         index("routes/home.tsx"),
         route('/my-projects', "routes/my-projects.tsx"),
-        route('visualize/:id', "./routes/visualizer.$id.tsx"),
+        route('/profile', "routes/profile/profile.tsx"),
     ]),
 ] satisfies RouteConfig;

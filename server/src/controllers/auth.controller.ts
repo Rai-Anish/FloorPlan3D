@@ -9,6 +9,7 @@ import {
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import ApiError from "../utils/ApiError.js";
+import { prisma } from "../config/db.js";
 
 export const register = asyncHandler(async(req, res)=>{
     const { user } = await registerUser(req.body);
@@ -85,5 +86,17 @@ export const logout = asyncHandler(async (req: Request, res: Response) => {
 });
 
 export const getMe = asyncHandler(async (req: Request, res: Response) => {
-    res.status(200).json(new ApiResponse(200, { user: req.user }, "User fetched successfully"));
+    const user = await prisma.user.findUnique({
+        where: { id: req.user!.id },
+        select: {
+            id: true,
+            email: true,
+            username: true,
+            avatar: true,
+            isVerified: true,
+            provider: true,
+            createdAt: true,
+        }
+    });
+    res.status(200).json(new ApiResponse(200, { user }, "User fetched successfully"));
 });
