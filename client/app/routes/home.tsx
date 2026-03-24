@@ -4,8 +4,8 @@ import Navbar from "~/components/navbar/Navbar";
 import { ArrowRight, Layers } from "lucide-react";
 import { Button } from "~/components/ui/Button";
 import Upload from "~/components/Upload";
-import { ProjectSettingsModal } from "~/components/ProjectSettingsModal";
-import { ProjectCard } from "~/components/ProjectCard";
+import { ProjectSettingsModal } from "~/components/project/ProjectSettingsModal";
+import { ProjectCard } from "~/components/project/ProjectCard";
 import { useCommunityProjects, useCreateProject, useMyProjects } from "~/hooks/useProject";
 import { useAuthStore } from "~/store/authStore";
 

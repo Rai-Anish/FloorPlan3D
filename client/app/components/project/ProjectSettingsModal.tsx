@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { X } from "lucide-react";
-import { Button } from "./ui/Button.js";
+import { Button } from "~/components/ui/Button"
 
 type Provider = "comfyui" | "gemini";
 type Visibility = "PRIVATE" | "COMMUNITY";
