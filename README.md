@@ -95,9 +95,23 @@ roomify/
 │   │   │           ├── ChangePasswordForm.tsx
 │   │   │           ├── DangerZone.tsx
 │   │   │           ├── EditProfileForm.tsx
+                    ├── ProfileStats.tsx
+                ├── Project/
+│   │   │           ├── ProjectCard.tsx
+│   │   │           ├── ProjectCardSkeleteon.tsx
+│   │   │           ├── ProjectSettingsModal.tsx
+                ├── ui/
+│   │   │           ├── Accordion.tsx
+│   │   │           ├── Button.tsx
+│   │   │           ├── FOrmField.tsx
+│   │   │           ├── FullPageLoader.tsx
+│   │   │           ├── PricingCard.tsx
+│   │   │           ├── Skeleton.tsx
+                ├── visualizer/
+│   │   │           ├── ComparisonSlider.tsx
+│   │   │           ├── VisualizerActions.tsx
+│   │   │   ├── AuthForm.tsx
 │   │   │   ├── Footer.tsx
-│   │   │   ├── ProjectCard.tsx
-│   │   │   ├── ProjectSettingsModal.tsx
 │   │   │   ├── GoogleButton.tsx
 │   │   │   └── Upload.tsx
 │   │   ├── hooks/                   # React Query hooks
@@ -107,25 +121,36 @@ roomify/
 │   │   ├── routes/                  # Page components
 │   │   │   ├── home.tsx
 │   │   │   ├── my-projects.tsx
-│   │   │   ├── profile.tsx
 │   │   │   ├── pricing.tsx
 │   │   │   ├── enterprise.tsx
-│   │   │   ├── privacy.tsx
-│   │   │   ├── terms.tsx
-│   │   │   ├── cookies.tsx
-│   │   │   ├── visualizer.$id.tsx
+│   │   │   ├── layout.tsx
+│   │   │   ├── visualizer.tsx
+        └── legal/
+│   │   │       ├── privacy.tsx
+│   │   │       ├── terms.tsx
+│   │   │       ├── cookies.tsx
+        └── profile/
+│   │   │       ├── profile-skeleton.tsx
+│   │   │       ├── profile.tsx
 │   │   │   └── auth/
-│   │   │       ├── login.tsx
-│   │   │       ├── signup.tsx
-│   │   │       ├── verify.tsx
-│   │   │       └── auth.callback.tsx
+│   │   │          ├── login.tsx
+│   │   │          ├── signup.tsx
+│   │   │          ├── verify.tsx
+│   │   │          └── auth.callback.tsx
+                   └── layout.tsx
+│   │   ├── schemas/
+│   │   │   └── auth.schema.ts
 │   │   ├── store/
 │   │   │   └── authStore.ts         # Zustand auth store
 │   │   ├── lib/
 │   │   │   ├── axios.ts             # Axios instance + interceptors
-│   │   │   └── queryClient.ts       # TanStack Query client
+│   │   │   └── constants.ts
+            └── utils.ts
 │   │   └── types/
 │   │       └── index.ts
+│   │   ├── app.css
+│   │   ├── root.tsx
+│   │   ├── routes.ts
 │   └── package.json
 │
 ├── server/                          # Express + TypeScript backend
@@ -151,16 +176,11 @@ roomify/
 │   │   │   └── user.routes.ts
 │   │   ├── services/
 │   │   │   ├── auth.service.ts
-│   │   │   ├── project.service.ts
 │   │   │   ├── user.service.ts
 │   │   │   ├── gemini.service.ts
 │   │   │   ├── oauth.service.ts
-│   │   │   └── comfyui/             # ComfyUI integration
-│   │   │       ├── index.ts
-│   │   │       ├── client.ts
-│   │   │       ├── workflow.ts
-│   │   │       ├── poller.ts
-│   │   │       └── types.ts
+│   │   │   └── comfyui.service.ts
+│   │   │   └── project.service.ts
 │   │   ├── types/
 │   │   │   ├── auth.types.ts
 │   │   │   ├── project.types.ts
@@ -173,6 +193,8 @@ roomify/
 │   │       ├── token.utils.ts
 │   │       ├── email.utils.ts
 │   │       └── cloudinary.ts
+│   │   └── app.ts
+│   │   └── server.ts
 │   ├── prisma/
 │   │   └── schema.prisma
 │   ├── prisma.config.ts
