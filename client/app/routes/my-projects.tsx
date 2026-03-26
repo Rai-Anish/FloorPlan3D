@@ -66,6 +66,7 @@ export default function MyProjects() {
                                     key={proj.id}
                                     project={proj}
                                     showAuthor={false}
+                                    showDelete={true}
                                 />
                             ))}
                         </div>
