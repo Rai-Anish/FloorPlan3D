@@ -15,7 +15,8 @@
 FloorPlan3D is a full-stack web application that uses AI to convert 2D architectural floor plans into photorealistic top-down 3D renders. Users upload a floor plan image and receive a professional visualization with realistic materials, furniture, and lighting — delivered in real-time via Server-Sent Events.
 
 ## DEMO
-![alt text](./docs/Florplan3d.mp4)
+<video src="./docs/Florplan3d.mp4" controls="controls" muted="muted" style="max-width: 100%; height: auto;">
+</video>
 [**🎥 Watch Full Video Demo on YouTube**](https://youtu.be/fiViL17RGFA)
 
 ## Architecture
