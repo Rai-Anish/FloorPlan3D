@@ -15,7 +15,7 @@
 FloorPlan3D is a full-stack web application that uses AI to convert 2D architectural floor plans into photorealistic top-down 3D renders. Users upload a floor plan image and receive a professional visualization with realistic materials, furniture, and lighting — delivered in real-time via Server-Sent Events.
 
 ## DEMO
-![alt text](./docs/florplan3d.gif)
+![alt text](./docs/Florplan3d.mp4)
 [**🎥 Watch Full Video Demo on YouTube**](https://youtu.be/fiViL17RGFA)
 
 ## Architecture
@@ -441,6 +441,17 @@ The project uses the **FLUX.2-klein image edit workflow** which takes a referenc
 - `VAEDecode` → `SaveImage` — decodes and saves output
 
 **Recommended GPU:** RTX 3060 or higher (8GB+ VRAM)
+<details>
+<summary><b>View ComfyUI Workflow Details</b></summary>
+
+> [!NOTE]
+> You can find the ComfyUI workflow JSON at: `docs/workflow.json`.
+>
+> To use it:
+> 1. Open ComfyUI.
+> 2. Drag and drop the `.json` file from the `/docs` folder directly into the browser.
+</details>
+
 
 ---
 
