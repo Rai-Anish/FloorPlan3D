@@ -22,8 +22,6 @@ FloorPlan3D is a full-stack web application that uses AI to convert 2D architect
 <video src="https://github.com/user-attachments/assets/a402d2c0-89e2-4e30-929e-d3d3e9c59eaf" controls muted width="630">
 </video>
 
-[**🎥 Watch Full Video Demo on YouTube**](https://youtu.be/fiViL17RGFA)
-
 ## Architecture
 
 ![FloorPlan3D Architecture](./docs/architecture.png)
