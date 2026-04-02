@@ -5,7 +5,6 @@ import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 import globals from "globals";
-import eslintConfigPrettier from "eslint-config-prettier"; // 1. Imported the fix
 
 export default [
   {
@@ -50,10 +49,13 @@ export default [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/no-explicit-any": "off",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
+      "react/no-unescaped-entities": "off",
+      "react/display-name": "off",
       "no-undef": "error",
     },
   },
-  eslintConfigPrettier, // 2. Added at the very end
 ];

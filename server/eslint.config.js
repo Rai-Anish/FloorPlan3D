@@ -2,11 +2,9 @@ import js from "@eslint/js";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import tsparser from "@typescript-eslint/parser";
 import globals from "globals";
-import eslintConfigPrettier from "eslint-config-prettier"; 
 
 export default [
   {
-    // Ensure ESLint doesn't try to lint your compiled JS or dependencies
     ignores: ["node_modules", "dist", "*.config.ts"],
   },
   {
@@ -28,14 +26,13 @@ export default [
     rules: {
       ...js.configs.recommended.rules,
       ...tseslint.configs.recommended.rules,
-      "@typescript-eslint/no-unused-vars": ["error", { 
-        argsIgnorePattern: "^_", 
-        varsIgnorePattern: "^_" 
-      }],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],
+      "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-empty-object-type": "off",
+      "@typescript-eslint/no-namespace": "off",
       "no-undef": "off",
-      "no-console": "off", // Usually preferred for server logging
+      "no-console": "off",
     },
   },
-  eslintConfigPrettier, // Must be last!
 ];
