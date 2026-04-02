@@ -19,22 +19,22 @@ jobs:
           username: ${{ secrets.DOCKER_NAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 🐳 SERVER IMAGE
+      #SERVER IMAGE
       - name: Build & push server
         uses: docker/build-push-action@v5
         with:
           context: ./server
           push: true
           tags: |
-            ${{ secrets.DOCKER_NAME }}/app-server:latest
-            ${{ secrets.DOCKER_NAME }}/app-server:${{ github.sha }}
+            ${{ secrets.DOCKER_NAME }}/floormod3d:server-latest
+            ${{ secrets.DOCKER_NAME }}/floormod3d:server-${{ github.sha }}
 
-      # 🐳 CLIENT IMAGE
+      #CLIENT IMAGE
       - name: Build & push client
         uses: docker/build-push-action@v5
         with:
           context: ./client
           push: true
           tags: |
-            ${{ secrets.DOCKER_NAME }}/app-client:latest
-            ${{ secrets.DOCKER_NAME }}/app-client:${{ github.sha }}
+            ${{ secrets.DOCKER_NAME }}/floormod3d:client-latest
+            ${{ secrets.DOCKER_NAME }}/floormod3d:client-${{ github.sha }}
